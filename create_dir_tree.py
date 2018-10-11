@@ -47,6 +47,9 @@ def slugify(value, allow_unicode=False):
         value = unicodedata.normalize('NFKD', value).encode('ascii', 'ignore').decode('ascii')
     #value = re.sub(r'[^\w\s-]', '', value).strip()#.lower()
     #return re.sub(r'[-\s]+', ' ', value).strip()
+    # Strip trailing period because Windows is fucking stupid.
+    # https://superuser.com/questions/585097/
+    value = re.sub(r'\.$', '', value) 
     return re.sub(r':',' -', value).strip()
 
 def createDirTreeCategories(JSONData):
